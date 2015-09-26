@@ -1,0 +1,20 @@
+<!--index.html-->
+<html>
+<body>
+    <title>CET4 看看同学的照片</title>
+    <head>CET4 看看同学的照片</head>
+    <h2>{{session['stuphoto']}}</h2>
+    <hr/>
+    <div class="form">
+        <form method="post">
+            {{ form.hidden_tag() }}
+            {{ form.lable }} {{ form.name }}
+            {{ form.submit }}
+        </form>
+    </div>
+    <hr/>
+    <div class="photo">
+        <img src={{session['stuphoto']}}>
+    </div>
+</body>
+</html>
