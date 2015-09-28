@@ -20,7 +20,7 @@ class Cet4Spider(object):
     模拟登录CET4网站
     爬取姓名学号信息
     """
-    def __init__(self):
+    def __init__(self, stuno, stupwd):
         self.user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:42.0) Gecko/20100101 Firefox/42.0"
         self.headers = {
                 'User-Agent':self.user_agent,
@@ -29,8 +29,8 @@ class Cet4Spider(object):
             }
         self.postdata = urllib.urlencode({
                 'stype':'#',
-                'stuno':'2014214761',
-                'stupwd':'#'  # 记得修改
+                'stuno':stuno,
+                'stupwd':stupwd
             })
 
 
@@ -54,9 +54,10 @@ class Cet4Spider(object):
 
     # 利用cookie模拟登录cet4
     def get_stu_info(self):
-        file = open("stuinfo.txt", 'w+')
+        file = open("stuinfo.txt", 'r+')
+        file.read()  # 读取文件，将文件指针移到文件末尾
         """利用cookie模拟登录,爬取相关信息,并写入文件"""
-        for i in range(2014210727, 2014210914, 10):
+        for i in range(2014210727, 2014210920, 10):
             # page 范围是727~914
             photo_url = 'http://cet.tinyin.net/accuse.asp?nxtid=%s' % str(i)
 
@@ -99,6 +100,9 @@ class Cet4Spider(object):
 
 
 if __name__ == "__main__":
-    cet4 = Cet4Spider()
+    from getpass import getpass
+    username = raw_input('username: ')
+    password = getpass()
+    cet4 = Cet4Spider(username, password)
     cet4.analog_login()
     cet4.get_stu_info()
